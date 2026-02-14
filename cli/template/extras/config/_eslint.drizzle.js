@@ -5,7 +5,7 @@ import drizzle from "eslint-plugin-drizzle";
 
 export default tseslint.config(
   {
-		ignores: ['.next', 'out', 'build', 'next-env.d.ts']
+		ignores: ['.next', 'out', 'build', 'generated', 'next-env.d.ts']
 	},
   ...nextVitals,
   {
