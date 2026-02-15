@@ -5,15 +5,15 @@ description: Scaffold a new T3 app using the locally-built CLI. Use when the use
 
 # Run CLI
 
-Ensure the CLI is built first (`cd cli && pnpm build`).
+Ensure the CLI is built first (`pnpm build:cli`).
 
 ## Scaffold with pnpm
 
 ```bash
-npm_config_user_agent="pnpm/9.0.0" node cli/dist/index.js <output-path> --CI [flags]
+pnpm start:cli -- <output-path> --CI [flags]
 ```
 
-The `npm_config_user_agent` env var is required to simulate `pnpm create` behavior (installs with pnpm, copies `.npmrc`, sets `packageManager` field).
+This uses Turborepo to run the CLI's `start` script. Only use with `--CI` flag — interactive mode doesn't work through Turbo.
 
 ## Available flags
 
@@ -25,6 +25,7 @@ The `npm_config_user_agent` env var is required to simulate `pnpm create` behavi
 | `--drizzle` | Include Drizzle ORM |
 | `--nextAuth` | Include NextAuth.js |
 | `--betterAuth` | Include BetterAuth |
+| `--clerk` | Include Clerk |
 | `--eslint` | Include ESLint + Prettier |
 | `--biome` | Include Biome |
 | `--appRouter` | Use App Router (omit for Pages Router) |
@@ -33,11 +34,11 @@ The `npm_config_user_agent` env var is required to simulate `pnpm create` behavi
 ## Example: full-stack app
 
 ```bash
-npm_config_user_agent="pnpm/9.0.0" node cli/dist/index.js /tmp/t3-test --CI --tailwind --trpc --prisma --eslint --appRouter --dbProvider sqlite
+pnpm start:cli -- ~/Documents/Repositories/t3-test --CI --tailwind --trpc --prisma --eslint --appRouter --dbProvider sqlite
 ```
 
 ## Verify generated project
 
 ```bash
-cd /tmp/t3-test && pnpm lint && pnpm build
+cd ~/Documents/Repositories/t3-test && pnpm lint && pnpm build
 ```

@@ -8,7 +8,7 @@ description: Build the create-t3-app CLI from source. Use when the user says "/b
 Run from the repo root:
 
 ```bash
-cd cli && pnpm build
+pnpm build:cli
 ```
 
 Expect output ending with `Build success`. The compiled output is at `cli/dist/index.js`.

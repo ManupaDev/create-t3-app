@@ -121,13 +121,13 @@ cd cli && pnpm build
 2. **Run interactively** (launches prompts):
 
 ```bash
-npm_config_user_agent="pnpm/9.0.0" node cli/dist/index.js /tmp/my-app
+npm_config_user_agent="pnpm/9.0.0" node cli/dist/index.js ~/Documents/Repositories/my-app
 ```
 
 3. **Run in CI mode** (skip prompts with flags):
 
 ```bash
-npm_config_user_agent="pnpm/9.0.0" node cli/dist/index.js /tmp/my-app --CI --tailwind --trpc --clerk --prisma --eslint --appRouter --dbProvider sqlite
+npm_config_user_agent="pnpm/9.0.0" node cli/dist/index.js ~/Documents/Repositories/my-app --CI --tailwind --trpc --clerk --prisma --eslint --appRouter --dbProvider sqlite
 ```
 
 > The `npm_config_user_agent` env var simulates running via `pnpm create` so the scaffolded project uses pnpm as the package manager.
