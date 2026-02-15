@@ -53,6 +53,12 @@ export const logNextSteps = async ({
     );
   }
 
+  if (packages?.clerk.inUse) {
+    logger.info(
+      `  Fill in your .env with Clerk keys from https://dashboard.clerk.com`
+    );
+  }
+
   if (["npm", "bun"].includes(pkgManager)) {
     logger.info(`  ${pkgManager} run dev`);
   } else {

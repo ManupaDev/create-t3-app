@@ -24,6 +24,7 @@ export const trpcInstaller: Installer = ({
 
   const usingAuth = packages?.nextAuth.inUse;
   const usingBetterAuth = packages?.betterAuth.inUse;
+  const usingClerk = packages?.clerk.inUse;
   const usingPrisma = packages?.prisma.inUse;
   const usingDrizzle = packages?.drizzle.inUse;
   const usingDb = usingPrisma === true || usingDrizzle === true;
@@ -38,6 +39,8 @@ export const trpcInstaller: Installer = ({
   const apiHandlerDest = path.join(projectDir, srcToUse);
 
   const trpcFile = (() => {
+    if (usingClerk && usingDb) return "with-clerk-db.ts";
+    if (usingClerk) return "with-clerk.ts";
     if (usingBetterAuth && usingDb) return "with-better-auth-db.ts";
     if (usingBetterAuth) return "with-better-auth.ts";
     if (usingAuth && usingDb) return "with-auth-db.ts";
@@ -56,18 +59,19 @@ export const trpcInstaller: Installer = ({
   const rootRouterSrc = path.join(extrasDir, "src/server/api/root.ts");
   const rootRouterDest = path.join(projectDir, "src/server/api/root.ts");
 
-  const exampleRouterFile =
-    (usingAuth || usingBetterAuth) && usingPrisma
-      ? "with-auth-prisma.ts"
-      : (usingAuth || usingBetterAuth) && usingDrizzle
-        ? "with-auth-drizzle.ts"
-        : usingAuth || usingBetterAuth
-          ? "with-auth.ts"
-          : usingPrisma
-            ? "with-prisma.ts"
-            : usingDrizzle
-              ? "with-drizzle.ts"
-              : "base.ts";
+  const exampleRouterFile = (() => {
+    if (usingClerk && usingPrisma) return "with-clerk-prisma.ts";
+    if (usingClerk && usingDrizzle) return "with-clerk-drizzle.ts";
+    if (usingClerk) return "with-auth.ts";
+    if ((usingAuth || usingBetterAuth) && usingPrisma)
+      return "with-auth-prisma.ts";
+    if ((usingAuth || usingBetterAuth) && usingDrizzle)
+      return "with-auth-drizzle.ts";
+    if (usingAuth || usingBetterAuth) return "with-auth.ts";
+    if (usingPrisma) return "with-prisma.ts";
+    if (usingDrizzle) return "with-drizzle.ts";
+    return "base.ts";
+  })();
 
   const exampleRouterSrc = path.join(
     extrasDir,

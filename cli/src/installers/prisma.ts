@@ -30,11 +30,13 @@ export const prismaInstaller: Installer = ({
 
   const extrasDir = path.join(PKG_ROOT, "template/extras");
 
-  const schemaBaseName = packages?.betterAuth.inUse
-    ? "with-better-auth"
-    : packages?.nextAuth.inUse
-      ? "with-auth"
-      : "base";
+  const schemaBaseName = packages?.clerk.inUse
+    ? "with-clerk"
+    : packages?.betterAuth.inUse
+      ? "with-better-auth"
+      : packages?.nextAuth.inUse
+        ? "with-auth"
+        : "base";
   const schemaSrc = path.join(
     extrasDir,
     "prisma/schema",
