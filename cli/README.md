@@ -108,6 +108,32 @@ bun create t3-app@latest
 
 For more advanced usage, check out the [CLI docs](https://create.t3.gg/en/installation).
 
+<h2 id="local-development">Local Development</h2>
+
+To run the CLI locally from source:
+
+1. **Build the CLI:**
+
+```bash
+cd cli && pnpm build
+```
+
+2. **Run interactively** (launches prompts):
+
+```bash
+npm_config_user_agent="pnpm/9.0.0" node cli/dist/index.js /tmp/my-app
+```
+
+3. **Run in CI mode** (skip prompts with flags):
+
+```bash
+npm_config_user_agent="pnpm/9.0.0" node cli/dist/index.js /tmp/my-app --CI --tailwind --trpc --clerk --prisma --eslint --appRouter --dbProvider sqlite
+```
+
+> The `npm_config_user_agent` env var simulates running via `pnpm create` so the scaffolded project uses pnpm as the package manager.
+
+**Available flags:** `--tailwind`, `--trpc`, `--prisma`, `--drizzle`, `--nextAuth`, `--betterAuth`, `--clerk`, `--eslint`, `--biome`, `--appRouter`, `--dbProvider <sqlite|mysql|postgres|planetscale>`
+
 <h2 id="community">Community</h2>
 
 For help, discussion about best practices, or any other conversation that would benefit create-t3-app:
