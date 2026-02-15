@@ -11,6 +11,9 @@ export const dependencyVersionMap = {
   // Better-Auth
   "better-auth": "^1.3",
 
+  // Clerk
+  "@clerk/nextjs": "^6.12.0",
+
   // Prisma
   prisma: "^6.6.0",
   "@prisma/client": "^6.6.0",

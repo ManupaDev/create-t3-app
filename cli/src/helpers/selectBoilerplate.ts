@@ -18,9 +18,18 @@ export const selectAppFile = ({
   const usingTRPC = packages.trpc.inUse;
   const usingAuth = packages?.nextAuth.inUse ?? packages?.betterAuth.inUse;
   const usingBetterAuth = packages?.betterAuth.inUse;
+  const usingClerk = packages?.clerk.inUse;
 
   let appFile = "base.tsx";
-  if (usingTRPC && usingTw && usingBetterAuth) {
+  if (usingTRPC && usingTw && usingClerk) {
+    appFile = "with-clerk-trpc-tw.tsx";
+  } else if (usingTRPC && !usingTw && usingClerk) {
+    appFile = "with-clerk-trpc.tsx";
+  } else if (!usingTRPC && usingTw && usingClerk) {
+    appFile = "with-clerk-tw.tsx";
+  } else if (!usingTRPC && !usingTw && usingClerk) {
+    appFile = "with-clerk.tsx";
+  } else if (usingTRPC && usingTw && usingBetterAuth) {
     appFile = "with-better-auth-trpc-tw.tsx";
   } else if (usingTRPC && !usingTw && usingBetterAuth) {
     appFile = "with-better-auth-trpc.tsx";
@@ -54,8 +63,18 @@ export const selectLayoutFile = ({
 
   const usingTw = packages.tailwind.inUse;
   const usingTRPC = packages.trpc.inUse;
+  const usingClerk = packages?.clerk.inUse;
+
   let layoutFile = "base.tsx";
-  if (usingTRPC && usingTw) {
+  if (usingClerk && usingTRPC && usingTw) {
+    layoutFile = "with-clerk-trpc-tw.tsx";
+  } else if (usingClerk && usingTRPC && !usingTw) {
+    layoutFile = "with-clerk-trpc.tsx";
+  } else if (usingClerk && !usingTRPC && usingTw) {
+    layoutFile = "with-clerk-tw.tsx";
+  } else if (usingClerk && !usingTRPC && !usingTw) {
+    layoutFile = "with-clerk.tsx";
+  } else if (usingTRPC && usingTw) {
     layoutFile = "with-trpc-tw.tsx";
   } else if (usingTRPC && !usingTw) {
     layoutFile = "with-trpc.tsx";
@@ -79,10 +98,19 @@ export const selectIndexFile = ({
   const usingTw = packages.tailwind.inUse;
   const usingBetterAuth = packages?.betterAuth.inUse;
   const usingNextAuth = packages?.nextAuth.inUse;
+  const usingClerk = packages?.clerk.inUse;
   const usingAuth = usingNextAuth || usingBetterAuth;
 
   let indexFile = "base.tsx";
-  if (usingTRPC && usingTw && usingBetterAuth) {
+  if (usingTRPC && usingTw && usingClerk) {
+    indexFile = "with-clerk-trpc-tw.tsx";
+  } else if (usingTRPC && !usingTw && usingClerk) {
+    indexFile = "with-clerk-trpc.tsx";
+  } else if (!usingTRPC && usingTw && usingClerk) {
+    indexFile = "with-clerk-tw.tsx";
+  } else if (!usingTRPC && !usingTw && usingClerk) {
+    indexFile = "with-clerk.tsx";
+  } else if (usingTRPC && usingTw && usingBetterAuth) {
     indexFile = "with-better-auth-trpc-tw.tsx";
   } else if (usingTRPC && !usingTw && usingBetterAuth) {
     indexFile = "with-better-auth-trpc.tsx";
@@ -118,9 +146,18 @@ export const selectPageFile = ({
   const usingTw = packages.tailwind.inUse;
   const usingAuth = packages?.nextAuth.inUse;
   const usingBetterAuth = packages?.betterAuth.inUse;
+  const usingClerk = packages?.clerk.inUse;
 
   let indexFile = "base.tsx";
-  if (usingTRPC && usingTw && usingBetterAuth) {
+  if (usingTRPC && usingTw && usingClerk) {
+    indexFile = "with-clerk-trpc-tw.tsx";
+  } else if (usingTRPC && !usingTw && usingClerk) {
+    indexFile = "with-clerk-trpc.tsx";
+  } else if (!usingTRPC && usingTw && usingClerk) {
+    indexFile = "with-clerk-tw.tsx";
+  } else if (!usingTRPC && !usingTw && usingClerk) {
+    indexFile = "with-clerk.tsx";
+  } else if (usingTRPC && usingTw && usingBetterAuth) {
     indexFile = "with-better-auth-trpc-tw.tsx";
   } else if (usingTRPC && !usingTw && usingBetterAuth) {
     indexFile = "with-better-auth-trpc.tsx";
