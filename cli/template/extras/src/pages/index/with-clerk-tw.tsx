@@ -1,10 +1,4 @@
-import {
-  SignInButton,
-  SignOutButton,
-  SignedIn,
-  SignedOut,
-  useUser,
-} from "@clerk/nextjs";
+import { SignInButton, SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
 import Head from "next/head";
 import Link from "next/link";
 
@@ -55,37 +49,14 @@ export default function Home() {
 }
 
 function AuthShowcase() {
-  const { user, isLoaded } = useUser();
-
-  if (!isLoaded) {
-    return <p className="text-2xl text-white">Loading...</p>;
-  }
-
   return (
     <div className="flex flex-col items-center justify-center gap-4">
-      <p className="text-center text-2xl text-white">
-        {user && <span>Logged in as {user.firstName}</span>}
-      </p>
-      <SignedIn>
-        <SignOutButton>
-          <button
-            type="button"
-            className="rounded-full bg-white/10 px-10 py-3 font-semibold text-white no-underline transition hover:bg-white/20"
-          >
-            Sign out
-          </button>
-        </SignOutButton>
-      </SignedIn>
       <SignedOut>
-        <SignInButton>
-          <button
-            type="button"
-            className="rounded-full bg-white/10 px-10 py-3 font-semibold text-white no-underline transition hover:bg-white/20"
-          >
-            Sign in
-          </button>
-        </SignInButton>
+        <SignInButton />
       </SignedOut>
+      <SignedIn>
+        <UserButton />
+      </SignedIn>
     </div>
   );
 }

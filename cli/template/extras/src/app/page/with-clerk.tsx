@@ -1,17 +1,9 @@
 import Link from "next/link";
 
-import {
-  SignInButton,
-  SignOutButton,
-  SignedIn,
-  SignedOut,
-} from "@clerk/nextjs";
-import { currentUser } from "@clerk/nextjs/server";
+import { SignInButton, SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
 import styles from "./index.module.css";
 
-export default async function Home() {
-  const user = await currentUser();
-
+export default function Home() {
   return (
     <main className={styles.main}>
       <div className={styles.container}>
@@ -44,23 +36,11 @@ export default async function Home() {
         </div>
         <div className={styles.showcaseContainer}>
           <div className={styles.authContainer}>
-            <p className={styles.showcaseText}>
-              {user && (
-                <span>
-                  Logged in as{" "}
-                  {user.firstName ?? user.emailAddresses[0]?.emailAddress}
-                </span>
-              )}
-            </p>
             <SignedOut>
-              <SignInButton>
-                <button className={styles.loginButton}>Sign in</button>
-              </SignInButton>
+              <SignInButton />
             </SignedOut>
             <SignedIn>
-              <SignOutButton>
-                <button className={styles.loginButton}>Sign out</button>
-              </SignOutButton>
+              <UserButton />
             </SignedIn>
           </div>
         </div>

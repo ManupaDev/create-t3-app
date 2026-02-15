@@ -1,20 +1,15 @@
 import Link from "next/link";
 
-import {
-  SignInButton,
-  SignOutButton,
-  SignedIn,
-  SignedOut,
-} from "@clerk/nextjs";
-import { currentUser } from "@clerk/nextjs/server";
+import { SignInButton, SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
+import { auth } from "@clerk/nextjs/server";
 import { LatestPost } from "~/app/_components/post";
 import { api, HydrateClient } from "~/trpc/server";
 
 export default async function Home() {
   const hello = await api.post.hello({ text: "from tRPC" });
-  const user = await currentUser();
+  const { userId } = await auth();
 
-  if (user) {
+  if (userId) {
     void api.post.getLatest.prefetch();
   }
 
@@ -55,32 +50,16 @@ export default async function Home() {
             </p>
 
             <div className="flex flex-col items-center justify-center gap-4">
-              <p className="text-center text-2xl text-white">
-                {user && (
-                  <span>
-                    Logged in as{" "}
-                    {user.firstName ?? user.emailAddresses[0]?.emailAddress}
-                  </span>
-                )}
-              </p>
               <SignedOut>
-                <SignInButton>
-                  <button className="rounded-full bg-white/10 px-10 py-3 font-semibold no-underline transition hover:bg-white/20">
-                    Sign in
-                  </button>
-                </SignInButton>
+                <SignInButton />
               </SignedOut>
               <SignedIn>
-                <SignOutButton>
-                  <button className="rounded-full bg-white/10 px-10 py-3 font-semibold no-underline transition hover:bg-white/20">
-                    Sign out
-                  </button>
-                </SignOutButton>
+                <UserButton />
               </SignedIn>
             </div>
           </div>
 
-          {user && <LatestPost />}
+          {userId && <LatestPost />}
         </div>
       </main>
     </HydrateClient>

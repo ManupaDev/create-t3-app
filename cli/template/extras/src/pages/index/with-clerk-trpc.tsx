@@ -1,8 +1,8 @@
 import {
   SignInButton,
-  SignOutButton,
   SignedIn,
   SignedOut,
+  UserButton,
   useUser,
 } from "@clerk/nextjs";
 import Head from "next/head";
@@ -77,23 +77,14 @@ function AuthShowcase() {
   return (
     <div className={styles.authContainer}>
       <p className={styles.showcaseText}>
-        {user && <span>Logged in as {user.firstName}</span>}
-        {secretMessage && <span> - {secretMessage}</span>}
+        {secretMessage && <span>{secretMessage}</span>}
       </p>
-      <SignedIn>
-        <SignOutButton>
-          <button type="button" className={styles.loginButton}>
-            Sign out
-          </button>
-        </SignOutButton>
-      </SignedIn>
       <SignedOut>
-        <SignInButton>
-          <button type="button" className={styles.loginButton}>
-            Sign in
-          </button>
-        </SignInButton>
+        <SignInButton />
       </SignedOut>
+      <SignedIn>
+        <UserButton />
+      </SignedIn>
     </div>
   );
 }

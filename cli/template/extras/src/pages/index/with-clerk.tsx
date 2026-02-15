@@ -1,10 +1,4 @@
-import {
-  SignInButton,
-  SignOutButton,
-  SignedIn,
-  SignedOut,
-  useUser,
-} from "@clerk/nextjs";
+import { SignInButton, SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
 import Head from "next/head";
 import Link from "next/link";
 
@@ -57,31 +51,14 @@ export default function Home() {
 }
 
 function AuthShowcase() {
-  const { user, isLoaded } = useUser();
-
-  if (!isLoaded) {
-    return <p className={styles.showcaseText}>Loading...</p>;
-  }
-
   return (
     <div className={styles.authContainer}>
-      <p className={styles.showcaseText}>
-        {user && <span>Logged in as {user.firstName}</span>}
-      </p>
-      <SignedIn>
-        <SignOutButton>
-          <button type="button" className={styles.loginButton}>
-            Sign out
-          </button>
-        </SignOutButton>
-      </SignedIn>
       <SignedOut>
-        <SignInButton>
-          <button type="button" className={styles.loginButton}>
-            Sign in
-          </button>
-        </SignInButton>
+        <SignInButton />
       </SignedOut>
+      <SignedIn>
+        <UserButton />
+      </SignedIn>
     </div>
   );
 }

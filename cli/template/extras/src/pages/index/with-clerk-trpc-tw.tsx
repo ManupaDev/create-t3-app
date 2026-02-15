@@ -1,8 +1,8 @@
 import {
   SignInButton,
-  SignOutButton,
   SignedIn,
   SignedOut,
+  UserButton,
   useUser,
 } from "@clerk/nextjs";
 import Head from "next/head";
@@ -76,29 +76,14 @@ function AuthShowcase() {
   return (
     <div className="flex flex-col items-center justify-center gap-4">
       <p className="text-center text-2xl text-white">
-        {user && <span>Logged in as {user.firstName}</span>}
-        {secretMessage && <span> - {secretMessage}</span>}
+        {secretMessage && <span>{secretMessage}</span>}
       </p>
-      <SignedIn>
-        <SignOutButton>
-          <button
-            type="button"
-            className="rounded-full bg-white/10 px-10 py-3 font-semibold text-white no-underline transition hover:bg-white/20"
-          >
-            Sign out
-          </button>
-        </SignOutButton>
-      </SignedIn>
       <SignedOut>
-        <SignInButton>
-          <button
-            type="button"
-            className="rounded-full bg-white/10 px-10 py-3 font-semibold text-white no-underline transition hover:bg-white/20"
-          >
-            Sign in
-          </button>
-        </SignInButton>
+        <SignInButton />
       </SignedOut>
+      <SignedIn>
+        <UserButton />
+      </SignedIn>
     </div>
   );
 }
